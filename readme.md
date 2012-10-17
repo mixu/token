@@ -7,11 +7,12 @@ Basic ideas:
 - Tokens are time-limited
 - Tokens can be associated with a set of data
 - Token expiry is lax, e.g. clients are warned well in advance of token expiry that they should renew their token
+- The verification hashes are cached
 
 ## API
 
 - token.generate([data], [opts]): Given a piece of data, generates a sha512 HMAC from the data and the current time (step) using a secret key
-- token.verify(data, hash, [opts]): Given a piece of data and a token, verifies that the HMAC matches.
+- token.verify(data, hash): Given a piece of data and a token, verifies that the HMAC matches. Returns a truthy value, either token.VALID or EXPIRING if the token is valid, or a falsy value, token.INVALID if the token is expired or invalid.
 
 ## Configuration
 
@@ -21,6 +22,7 @@ Token is just a small wrapper around sha512 HMAC hashes.
 
 - .defaults.secret: A shared secret
 - .defaults.timeStep: The length of the time a token is valid.
+- .defaults.cache: If false, caching is disabled.
 
 The server that generates the token, and the server that verifies the token have to agree on these two values. For example:
 
@@ -28,7 +30,9 @@ The server that generates the token, and the server that verifies the token have
     token.defaults.secret = 'AAB';
     token.defaults.timeStep = 24 * 60 * 60; // 24h in seconds
 
-Note that tokens from the previous time step are accepted, e.g. tokens can be valid up to two time steps from when they were issued.
+Note that tokens from the previous and next time step are accepted, e.g. tokens can be valid up to three time steps from when they were issued. This allows for 1) the token to expire lazily and 2) for the servers to disagree on time (e.g. even if the generating server is ahead, the token will be accepted).
+
+Caching: only the verification code uses a simple cache. Hashes are looked up from memory, and only computed if they were not previously computed. Up to 500 hashes are stored and when the cache is full, it is emptied completely.
 
 ## Passing in data and verifying the token
 
