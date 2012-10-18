@@ -22,7 +22,6 @@ exports.EXPIRING = 2;
 
 exports.verify = function(data, hash) {
   if(typeof data !== 'string' || typeof hash !== 'string' ) {
-    throw new Error('data should be a string '+(typeof data === 'string'));
     return false;
   }
   var epoch = Math.floor(new Date().getTime() / 1000 / d.timeStep); // e.g. http://tools.ietf.org/html/rfc6238
@@ -38,7 +37,6 @@ exports.verify = function(data, hash) {
 
 exports.generate = function(data, opts) {
   if(typeof data !== 'string') {
-    throw new Error('data should be a string '+(typeof data === 'string'));
     return false;
   }
   var now = opts && opts.now || (new Date().getTime()),
