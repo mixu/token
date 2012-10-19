@@ -62,4 +62,8 @@ The reason for having lax expiry is that it makes clients simpler: assuming that
 
 Instead, when the clients send tokens that are old (e.g. expired one time step ago), the tokens are still accepted but the client is warned that it should get a new token soon.
 
+## Links
+
+- HOTP (HMAC-Based One-Time Password Algorithm): [RFC 4226](http:tools.ietf.org/html/rfc4226)
+- TOTP (Time-Based One-Time Password Algorithm): [RFC 6238](http:tools.ietf.org/html/rfc6238)
 

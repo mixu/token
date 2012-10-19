@@ -1,7 +1,7 @@
 {
   "name": "token",
   "version": "0.0.0",
-  "description": "HMAC token generation and verification with time-based limitation on duration",
+  "description": "HMAC token generation and verification with time-based limitation on validity",
   "author": "Mikito Takada <mikito.takada@gmail.com>",
   "main": "index.js",
   "directories": {
@@ -11,5 +11,14 @@
     "type": "git",
     "url": "git://github.com/mixu/token.git"
   },
+  "keywords": [
+    "authentication",
+    "auth",
+    "access",
+    "token",
+    "hmac",
+    "hash",
+    "time"
+  ],
   "license": "BSD"
 }
