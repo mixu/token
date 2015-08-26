@@ -13,6 +13,7 @@ Basic ideas:
 
 - token.generate([data], [opts]): Given a piece of data, generates a sha512 HMAC from the data and the current time (step) using a secret key
 - token.verify(data, hash): Given a piece of data and a token, verifies that the HMAC matches. Returns a truthy value, either token.VALID or EXPIRING if the token is valid, or a falsy value, token.INVALID if the token is expired or invalid.
+- token.invalidate(data, hash): Given a piece of data, verifies the hash, and invalidates case is valid.
 
 ## Configuration
 
