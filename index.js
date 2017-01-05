@@ -45,3 +45,16 @@ exports.generate = function(data, opts) {
       epoch = Math.floor(now / 1000 / ts); // e.g. http://tools.ietf.org/html/rfc6238
   return crypto.createHmac('sha512', secret).update(data + epoch).digest('base64');
 };
+
+exports.invalidate = function(data, hash) {
+  var isValidHash = exports.verify(data, hash),
+    epoch = Math.floor(new Date().getTime() / 1000 / d.timeStep);
+
+  if (!isValidHash) {
+    throw 'invalid hash';
+  } else {
+    items[hash + epoch] = null;
+  }
+
+  return true;
+};
