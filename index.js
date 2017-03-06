@@ -40,8 +40,8 @@ exports.generate = function(data, opts) {
     return false;
   }
   var now = opts && opts.now || (new Date().getTime()),
-      ts = opts && opts.timeStep || d.timeStep,
-      secret =  opts && opts.secret || d.secret,
+      ts = (opts && opts.timeStep) || d.timeStep,
+      secret =  (opts && opts.secret) || d.secret,
       epoch = Math.floor(now / 1000 / ts); // e.g. http://tools.ietf.org/html/rfc6238
   return crypto.createHmac('sha512', secret).update(data + epoch).digest('base64');
 };
